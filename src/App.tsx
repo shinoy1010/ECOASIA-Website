@@ -13,19 +13,19 @@ import {
 } from 'lucide-react';
 
 const productsGroup1 = [
-  { name: "Glacier 2200", image: "/productImages/2200.png" },
-  { name: "Glacier 1800", image: "/productImages/1800.png" },
-  { name: "Glacier LED", image: "/productImages/led.png" },
-  { name: "Thunder", image: "/productImages/thunder.png" },
-  { name: "Whitefilter", image: "/productImages/wf.png" },
-  { name: "Glacier Mini", image: "/productImages/mini.png" },
-  { name: "Breeze", image: "/productImages/breeze.png" },
-  { name: "Blackseries", image: "/productImages/bs.png" },
+  { name: "Glacier 2200", image: "https://lh3.googleusercontent.com/d/1L3W1cvFAiecGsL70FdDCsP-odsd1RdKu" },
+  { name: "Glacier 1800", image: "https://lh3.googleusercontent.com/d/1y1nNaHjE-0WE-eyiCCt0zuaGEfEIKpTm" },
+  { name: "Glacier LED", image: "https://lh3.googleusercontent.com/d/1c9EdjdrTqR2J8V-5e9RKbRWJtiOif0G7" },
+  { name: "Thunder", image: "https://lh3.googleusercontent.com/d/18SaO6VJu8RW1QCzO7I4SNVq5ikvBdIfP" },
+  { name: "Whitefilter", image: "https://lh3.googleusercontent.com/d/1i1EwefG5bbPSBs5VO9H9mPhmxUD2pcnY" },
+  { name: "Glacier Mini", image: "https://lh3.googleusercontent.com/d/1gfyiZOg4bdFgjvcJ4pX2haIwKCd9RsFT" },
+  { name: "Breeze", image: "https://lh3.googleusercontent.com/d/1D_UKKiMW4MCOyn0cR_kj40QikIdQ7v3n" },
+  { name: "Blackseries", image: "https://lh3.googleusercontent.com/d/1B2y8RtppBbb8CjhxPFEYuUkg8qwtGWMi" },
 ];
 
 const productsGroup2 = [
-  { name: "Glacier 2200", image: "/productImages/2200.png" },
-  { name: "Blackseries 60", image: "/productImages/bs60.png" },
+  { name: "Glacier 2200", image: "https://lh3.googleusercontent.com/d/1L3W1cvFAiecGsL70FdDCsP-odsd1RdKu" },
+  { name: "Blackseries 60", image: "https://lh3.googleusercontent.com/d/1njJToG34BCbY-Vtyvql6xpKT48ijFBsW" },
 ];
 
 export default function App() {
@@ -220,7 +220,7 @@ export default function App() {
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/productImages/ecoasiaEntry.jpg" 
+            src="https://lh3.googleusercontent.com/d/1kWv4LXGf1ZUeoZMlughGzbHLWG5b_vSJ" 
             alt="Ecoasia Facility" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
