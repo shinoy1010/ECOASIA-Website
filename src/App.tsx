@@ -28,6 +28,17 @@ const productsGroup2 = [
   { name: "Blackseries 60", image: "https://lh3.googleusercontent.com/d/1njJToG34BCbY-Vtyvql6xpKT48ijFBsW" },
 ];
 
+const productsGroup3 = [
+  { name: "AeroMax Ceiling Fan", image: "https://picsum.photos/seed/fan1/800/1000" },
+  { name: "BreezePro Pedestal", image: "https://picsum.photos/seed/fan2/800/1000" },
+  { name: "Cyclone X", image: "https://picsum.photos/seed/fan3/800/1000" },
+  { name: "EcoWind Plus", image: "https://picsum.photos/seed/fan4/800/1000" },
+  { name: "StormForce 500", image: "https://picsum.photos/seed/fan5/800/1000" },
+  { name: "WhisperQuiet Ceiling", image: "https://picsum.photos/seed/fan6/800/1000" },
+  { name: "TurboJet Stand", image: "https://picsum.photos/seed/fan7/800/1000" },
+  { name: "AeroBlade Ultra", image: "https://picsum.photos/seed/fan8/800/1000" },
+];
+
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -472,6 +483,53 @@ export default function App() {
         </div>
       </section>
 
+      {/* Products Section 3 - The Legacy Ventilation Collection */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="max-w-3xl">
+              <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Legacy Ventilation Collection</h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">High-Speed Ceiling & Pedestal Fans</h3>
+              <p className="text-lg text-slate-600">
+                Precision-engineered for maximum air delivery, Ceiling and Pedestal fans are designed to keep you cool in the toughest summers. Featuring heavy-duty motors and aerodynamically balanced blades, our fans provide consistent, high-speed airflow while maintaining world-class energy efficiency.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {productsGroup3.map((product, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+              >
+                <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div className="p-6">
+                  <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                  <button 
+                    onClick={() => setSelectedProduct(product)}
+                    className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                  >
+                    View Details <ChevronRight className="w-4 h-4 ml-1" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Legacy Section */}
       <section id="legacy" className="py-24 bg-slate-900 text-white relative overflow-hidden">
         {/* Abstract Background Pattern */}
@@ -687,11 +745,15 @@ export default function App() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                  <span>+91 98960 97660</span>
+                  <a href="tel:+919896097660" className="hover:text-emerald-400 transition-colors">
+                    +91 98960 97660
+                  </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                  <span>contact@ecoasia.in</span>
+                  <a href="mailto:contact@ecoasia.in" className="hover:text-emerald-400 transition-colors">
+                    contact@ecoasia.in
+                  </a>
                 </li>
               </ul>
             </div>
