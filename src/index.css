@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-emerald-50: #fdf3f3;
+  --color-emerald-100: #fce4e4;
+  --color-emerald-200: #f9caca;
+  --color-emerald-300: #f4a3a3;
+  --color-emerald-400: #ec7373;
+  --color-emerald-500: #df4444;
+  --color-emerald-600: #bf1c1c;
+  --color-emerald-700: #a11414;
+  --color-emerald-800: #851313;
+  --color-emerald-900: #6e1616;
+  --font-protest: "Protest Strike", sans-serif;
+}
