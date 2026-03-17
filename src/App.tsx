@@ -9,7 +9,7 @@ import {
   Shield, Wind, Zap, Award, Users, CheckCircle, 
   ArrowRight, Phone, Mail, MapPin, Menu, X, 
   ThermometerSun, Droplets, Factory, ThumbsUp,
-  ChevronRight, Star, Leaf, Loader2
+  ChevronRight, ChevronDown, Star, Leaf, Loader2
 } from 'lucide-react';
 
 const productsGroup1 = [
@@ -24,25 +24,83 @@ const productsGroup1 = [
 ];
 
 const productsGroup2 = [
+  { name: "Glacier 3000", image: "https://lh3.googleusercontent.com/d/1i89Im4WMk3Szxm71rs5Js9K9i58UHFel" },
+  { name: "Nuspak Tent Cooler 90/120/200L", image: "https://lh3.googleusercontent.com/d/1pd2wN5stGAJL3FurA4SdP1tfG0M8KzeH" },
   { name: "Glacier 2200", image: "https://lh3.googleusercontent.com/d/1L3W1cvFAiecGsL70FdDCsP-odsd1RdKu" },
   { name: "Blackseries 60", image: "https://lh3.googleusercontent.com/d/1njJToG34BCbY-Vtyvql6xpKT48ijFBsW" },
 ];
 
 const productsGroup3 = [
-  { name: "AeroMax Ceiling Fan", image: "https://picsum.photos/seed/fan1/800/1000" },
-  { name: "BreezePro Pedestal", image: "https://picsum.photos/seed/fan2/800/1000" },
-  { name: "Cyclone X", image: "https://picsum.photos/seed/fan3/800/1000" },
-  { name: "EcoWind Plus", image: "https://picsum.photos/seed/fan4/800/1000" },
-  { name: "StormForce 500", image: "https://picsum.photos/seed/fan5/800/1000" },
-  { name: "WhisperQuiet Ceiling", image: "https://picsum.photos/seed/fan6/800/1000" },
-  { name: "TurboJet Stand", image: "https://picsum.photos/seed/fan7/800/1000" },
-  { name: "AeroBlade Ultra", image: "https://picsum.photos/seed/fan8/800/1000" },
+  { name: "AeroBlade - ABS", image: "https://lh3.googleusercontent.com/d/1yKvaaGZu8n2mOq2sxccB2RNQm1cFPDLW" },
+  { name: "EcoWind - Kit", image: "https://lh3.googleusercontent.com/d/1EZIBnlUtD05a9PtDZezONHFCImS-U-qe" },
+  { name: "Cyclone - 777", image: "https://lh3.googleusercontent.com/d/1GbPrtfjhU-_ayGZw2LDY3pRonmJsMNjB" },
+  { name: "Cyclone - Plus 777", image: "https://lh3.googleusercontent.com/d/1X9zlh9fO3aJ1LFIUiuXIpf3l52lBbMRV" },
+  { name: "TurboJet - 888", image: "https://lh3.googleusercontent.com/d/1BBB4zb6zR7SouqzQ0bwne0I8EB4Izuab" },
+  { name: "777 - Wall Cyclone", image: "https://lh3.googleusercontent.com/d/1cnySsL7he1_HKrhPUtflKCJEpOC7Ezoi" },
+  { name: "Prime - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1NaFmEOdz4-ZuU1OeDWn7wBJnhgEur2HS" },
+  { name: "Prime Plus - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1Evn0Nz-5yKlx7i7-D9JYuaXiOCNdDu_X" },
+  { name: "Estor - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1xbf2YvRzpdSsCJz7b8xq0m_UFlBxU82s" },
+  { name: "Ellora - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/13hBKg3PlYr2iV7FRFlHEZ8hGwNiCEtg9" },
 ];
+
+const productsGroup4 = [
+  { name: "Curd Percolator 5 Kg", image: "https://lh3.googleusercontent.com/d/16o-oYOTgcxHn-655csKMwyKJgHkv9Yaq" },
+  { name: "Curd Percolator 20 Kg", image: "https://lh3.googleusercontent.com/d/185504t7FfQ7Z9eb7_cgcSUXf2qW7CWEo" },
+  { name: "Curd Percolator 40 Kg", image: "https://lh3.googleusercontent.com/d/1Na0e_J1f4T6CX1vAc9OIj24BpscLejm4" },
+];
+
+const productsGroup5 = [
+  { name: "Premium Quartz Heater", image: "https://picsum.photos/seed/heater1/800/1000" },
+  { name: "Oil-Filled Radiator", image: "https://picsum.photos/seed/heater2/800/1000" },
+  { name: "PTC Ceramic Heater", image: "https://picsum.photos/seed/heater3/800/1000" },
+];
+
+const LazyImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  return (
+    <div className={`relative ${className} bg-slate-100`}>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-cover transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setError(true);
+        }}
+        referrerPolicy="no-referrer"
+        loading="lazy"
+      />
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-200 text-slate-400">
+          <div className="text-center p-4">
+            <Droplets className="w-8 h-8 mx-auto mb-2 opacity-20" />
+            <p className="text-xs">Image unavailable</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<{name: string, image: string} | null>(null);
+  const [isKitchenCollectionExpanded, setIsKitchenCollectionExpanded] = useState(false);
+  const [isSmartHomeExpanded, setIsSmartHomeExpanded] = useState(false);
+  const [isDomesticSeriesExpanded, setIsDomesticSeriesExpanded] = useState(false);
+  const [isLegacyVentilationExpanded, setIsLegacyVentilationExpanded] = useState(false);
+  const [isCommercialSeriesExpanded, setIsCommercialSeriesExpanded] = useState(false);
+  const [isProductsHovered, setIsProductsHovered] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -65,11 +123,11 @@ export default function App() {
     
     try {
       // Replace with your Google Apps Script Web App URL
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbx80nlqFCOZLxQBhj0TOPCkE1HKHuzBg-NJzK6TW12VGKp5hwD3lHnIVDWaBNNXTCU/exec';
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbxfW7GIb-f-XBUTCd9lciJQcVsIDY2xPsSyYXgJ_h0-vP6GsUcYKfwWqVInprA1XVA5Ig/exec';
       
       const formBody = new URLSearchParams();
       Object.entries(formData).forEach(([key, value]) => {
-        formBody.append(key, value);
+        formBody.append(key, value as string);
       });
 
       const response = await fetch(scriptUrl, {
@@ -113,10 +171,28 @@ export default function App() {
     };
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!imageContainerRef.current || zoomLevel === 1) return;
+    setIsDragging(true);
+    startPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    scrollPos.current = { 
+      left: imageContainerRef.current.scrollLeft, 
+      top: imageContainerRef.current.scrollTop 
+    };
+  };
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !imageContainerRef.current) return;
     const dx = e.clientX - startPos.current.x;
     const dy = e.clientY - startPos.current.y;
+    imageContainerRef.current.scrollLeft = scrollPos.current.left - dx;
+    imageContainerRef.current.scrollTop = scrollPos.current.top - dy;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !imageContainerRef.current) return;
+    const dx = e.touches[0].clientX - startPos.current.x;
+    const dy = e.touches[0].clientY - startPos.current.y;
     imageContainerRef.current.scrollLeft = scrollPos.current.left - dx;
     imageContainerRef.current.scrollTop = scrollPos.current.top - dy;
   };
@@ -180,7 +256,62 @@ export default function App() {
           </div>
           
           <div className="hidden md:flex items-center gap-8">
-            {['Mission', 'Manufacturing', 'Products', 'Legacy', 'Partner'].map((item) => (
+            {['Mission', 'Manufacturing'].map((item) => (
+              <button 
+                key={item} 
+                onClick={() => scrollTo(item.toLowerCase())}
+                className={`text-sm font-medium transition-colors hover:text-emerald-500 ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`}
+              >
+                {item}
+              </button>
+            ))}
+            
+            {/* Products Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsProductsHovered(true)}
+              onMouseLeave={() => setIsProductsHovered(false)}
+            >
+              <button 
+                onClick={() => scrollTo('products')}
+                className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-emerald-500 ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`}
+              >
+                Products
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {isProductsHovered && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden py-2"
+                  >
+                    {[
+                      { label: "Domestic Air Coolers", id: "products" },
+                      { label: "Commercial Air Coolers", id: "commercial-coolers" },
+                      { label: "Pedestal and Ceiling Fan", id: "legacy-ventilation" },
+                      { label: "Curd Percolator", id: "kitchen-collection" },
+                      { label: "Smart Heating Essentials", id: "smart-home" }
+                    ].map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => {
+                          scrollTo(option.id);
+                          setIsProductsHovered(false);
+                        }}
+                        className="w-full text-left px-6 py-3 text-sm text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {['Legacy', 'Partner'].map((item) => (
               <button 
                 key={item} 
                 onClick={() => scrollTo(item.toLowerCase())}
@@ -197,7 +328,10 @@ export default function App() {
             </button>
           </div>
 
-          <button className="md:hidden text-slate-900" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className="md:hidden text-slate-900" onClick={() => {
+            setMobileMenuOpen(!mobileMenuOpen);
+            setMobileProductsOpen(false);
+          }}>
             {mobileMenuOpen ? <X className={isScrolled ? 'text-slate-900' : 'text-white'} /> : <Menu className={isScrolled ? 'text-slate-900' : 'text-white'} />}
           </button>
         </div>
@@ -212,8 +346,61 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-white pt-24 px-4"
           >
-            <div className="flex flex-col gap-6 text-lg font-medium">
-              {['Mission', 'Manufacturing', 'Products', 'Legacy', 'Partner'].map((item) => (
+            <div className="flex flex-col gap-4 text-lg font-medium overflow-y-auto max-h-[80vh] pb-10">
+              {['Mission', 'Manufacturing'].map((item) => (
+                <button 
+                  key={item} 
+                  onClick={() => scrollTo(item.toLowerCase())}
+                  className="text-left text-slate-600 hover:text-emerald-600 border-b border-slate-100 pb-4"
+                >
+                  {item}
+                </button>
+              ))}
+
+              {/* Expandable Products Item */}
+              <div className="border-b border-slate-100 pb-4">
+                <button 
+                  onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+                  className="flex items-center justify-between w-full text-left text-slate-600 hover:text-emerald-600"
+                >
+                  Products
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                <AnimatePresence>
+                  {mobileProductsOpen && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex flex-col gap-4 pl-4 pt-4">
+                        {[
+                          { label: "Domestic Air Coolers", id: "products" },
+                          { label: "Commercial Air Coolers", id: "commercial-coolers" },
+                          { label: "Pedestal and Ceiling Fan", id: "legacy-ventilation" },
+                          { label: "Curd Percolator", id: "kitchen-collection" },
+                          { label: "Smart Heating Essentials", id: "smart-home" }
+                        ].map((option) => (
+                          <button
+                            key={option.id}
+                            onClick={() => {
+                              scrollTo(option.id);
+                              setMobileMenuOpen(false);
+                            }}
+                            className="text-left text-base text-slate-500 hover:text-emerald-600 py-1"
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {['Legacy', 'Partner'].map((item) => (
                 <button 
                   key={item} 
                   onClick={() => scrollTo(item.toLowerCase())}
@@ -248,11 +435,11 @@ export default function App() {
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 text-slate-200 text-sm font-medium tracking-wider uppercase mb-6 border border-white/20 backdrop-blur-sm">
               Ecoasia Private Limited
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
-              Building the Comfort <br className="hidden md:block" /> of Your Home
+            <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tight mb-6 leading-tight">
+              Empowering Your <br className="hidden md:block" /> Tomorrow, Today!
             </h1>
-            <p className="text-xl md:text-2xl text-slate-200 mb-10 max-w-3xl mx-auto font-light">
-              "Only with heart can we create quality, and only quality can attain trust."
+            <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-3xl mx-auto font-light italic">
+              "Only with heart do we craft quality, and only quality can attain trust."
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button 
@@ -364,7 +551,7 @@ export default function App() {
             >
               <div className="aspect-square rounded-3xl overflow-hidden relative">
                 <img 
-                  src="https://picsum.photos/seed/manufacturing-quality/800/800" 
+                  src="https://lh3.googleusercontent.com/d/1VLMk7PBDcWFPSoeLxyTziQ8NptCQd7Jm" 
                   alt="Manufacturing Process" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -390,143 +577,367 @@ export default function App() {
       </section>
 
       {/* Products Section 1 */}
-      <section id="products" className="py-24 bg-slate-50">
+      <section id="products" className="pt-12 pb-12 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="max-w-2xl">
-              <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">Domestic Series</h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Dessert Air Coolers</h3>
-              <p className="text-lg text-slate-600">
-                Beat the heat with our range of domestic high-performance air coolers, Designed for maximum airflow and energy efficiency.
+          <div className={`flex flex-col items-center text-center gap-6 ${isDomesticSeriesExpanded ? 'mb-12' : 'mb-0'}`}>
+            <div className="max-w-3xl">
+              <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Advanced Cooling Collection</h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">High-Performance Domestic Air Coolers</h3>
+              <p className="text-lg text-slate-600 mb-6">
+                Engineered for ultimate relief during the peak of summer, our range of Domestic Air Coolers provides powerful, refreshing airflow with maximum cooling efficiency. Featuring high-density honeycomb pads and heavy-duty blowers, these coolers are designed for superior air throw and rapid temperature reduction.
               </p>
+              <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                <img 
+                  src="https://lh3.googleusercontent.com/d/1XYbK3DK8LL_894gehWc2k4CzOUIgt_Zc" 
+                  alt="High-Performance Domestic Air Coolers" 
+                  className="w-full h-auto object-cover max-h-[400px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <button 
+                onClick={() => setIsDomesticSeriesExpanded(!isDomesticSeriesExpanded)}
+                className="inline-flex items-center px-6 py-3 bg-emerald-50 text-emerald-700 font-semibold rounded-full hover:bg-emerald-100 transition-colors mx-auto"
+              >
+                {isDomesticSeriesExpanded ? 'Hide Products' : 'View Products'}
+                <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isDomesticSeriesExpanded ? 'rotate-180' : ''}`} />
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {productsGroup1.map((product, i) => (
+          <AnimatePresence>
+            {isDomesticSeriesExpanded && (
               <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
               >
-                <div className="aspect-[4/5] overflow-hidden bg-slate-100 relative">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
-                  <button 
-                    onClick={() => setSelectedProduct(product)}
-                    className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
-                  >
-                    View Details <ChevronRight className="w-4 h-4 ml-1" />
-                  </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-4 pb-8">
+                  {productsGroup1.map((product, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden bg-slate-100 relative">
+                        <LazyImage 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                        <button 
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
       {/* Products Section 2 */}
-      <section className="py-24 bg-white">
+      <section id="commercial-coolers" className="pt-12 pb-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="max-w-2xl">
+          <div className={`flex flex-col items-center text-center gap-6 ${isCommercialSeriesExpanded ? 'mb-12' : 'mb-0'}`}>
+            <div className="max-w-3xl">
               <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">Commercial Series</h2>
               <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Heavy Air Coolers</h3>
-              <p className="text-lg text-slate-600">
+              <p className="text-lg text-slate-600 mb-6">
                 Industrial-grade performance for larger spaces. Built to deliver massive cooling capacity while maintaining whisper-quiet operation.
               </p>
+              <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                <img 
+                  src="https://lh3.googleusercontent.com/d/1-k3HwPk5ayZrzTm473X6DdpPg5kj3om-" 
+                  alt="Heavy Air Coolers Commercial Series" 
+                  className="w-full h-auto object-cover max-h-[400px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <button 
+                onClick={() => setIsCommercialSeriesExpanded(!isCommercialSeriesExpanded)}
+                className="inline-flex items-center px-6 py-3 bg-emerald-50 text-emerald-700 font-semibold rounded-full hover:bg-emerald-100 transition-colors mx-auto"
+              >
+                {isCommercialSeriesExpanded ? 'Hide Products' : 'View Products'}
+                <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isCommercialSeriesExpanded ? 'rotate-180' : ''}`} />
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {productsGroup2.map((product, i) => (
+          <AnimatePresence>
+            {isCommercialSeriesExpanded && (
               <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
               >
-                <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
-                  <button 
-                    onClick={() => setSelectedProduct(product)}
-                    className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
-                  >
-                    View Details <ChevronRight className="w-4 h-4 ml-1" />
-                  </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-4 pb-8">
+                  {productsGroup2.map((product, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                        <LazyImage 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                        <button 
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
       {/* Products Section 3 - The Legacy Ventilation Collection */}
-      <section className="py-24 bg-slate-50">
+      <section id="legacy-ventilation" className="pt-12 pb-12 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className={`flex flex-col items-center text-center gap-6 ${isLegacyVentilationExpanded ? 'mb-12' : 'mb-0'}`}>
             <div className="max-w-3xl">
               <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Legacy Ventilation Collection</h2>
               <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">High-Speed Ceiling & Pedestal Fans</h3>
-              <p className="text-lg text-slate-600">
+              <p className="text-lg text-slate-600 mb-6">
                 Precision-engineered for maximum air delivery, Ceiling and Pedestal fans are designed to keep you cool in the toughest summers. Featuring heavy-duty motors and aerodynamically balanced blades, our fans provide consistent, high-speed airflow while maintaining world-class energy efficiency.
               </p>
+              <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                <img 
+                  src="https://lh3.googleusercontent.com/d/1hWMSj6cNVZo2nkd7U36b06UWFmaituws" 
+                  alt="High-Speed Ceiling & Pedestal Fans" 
+                  className="w-full h-auto object-cover max-h-[400px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <button 
+                onClick={() => setIsLegacyVentilationExpanded(!isLegacyVentilationExpanded)}
+                className="inline-flex items-center px-6 py-3 bg-emerald-50 text-emerald-700 font-semibold rounded-full hover:bg-emerald-100 transition-colors mx-auto"
+              >
+                {isLegacyVentilationExpanded ? 'Hide Products' : 'View Products'}
+                <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isLegacyVentilationExpanded ? 'rotate-180' : ''}`} />
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {productsGroup3.map((product, i) => (
+          <AnimatePresence>
+            {isLegacyVentilationExpanded && (
               <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
               >
-                <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
-                  <button 
-                    onClick={() => setSelectedProduct(product)}
-                    className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
-                  >
-                    View Details <ChevronRight className="w-4 h-4 ml-1" />
-                  </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4 pb-8">
+                  {productsGroup3.map((product, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                        <LazyImage 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                        <button 
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            ))}
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Products Section 4 - The Traditional Kitchen Collection */}
+      <section id="kitchen-collection" className="pt-12 pb-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex flex-col items-center text-center gap-6 ${isKitchenCollectionExpanded ? 'mb-12' : 'mb-0'}`}>
+            <div className="max-w-3xl">
+              <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Traditional Kitchen Collection</h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">High-Torque Premium Madhani (Curd Percolators)</h3>
+              <p className="text-lg text-slate-600 mb-6">
+                Built to honor the authentic tradition of Indian kitchens, our Madhanis combine high-torque motor technology with rugged durability. Designed for effortless churning, they feature heavy-duty bodies and precision-engineered blades that ensure consistent performance even during heavy use.
+              </p>
+              <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                <img 
+                  src="https://lh3.googleusercontent.com/d/1oTo35EiAGXDqZmcxnjFYsjdkkunuS7AQ" 
+                  alt="Traditional Kitchen Collection Madhani" 
+                  className="w-full h-auto object-cover max-h-[400px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <button 
+                onClick={() => setIsKitchenCollectionExpanded(!isKitchenCollectionExpanded)}
+                className="inline-flex items-center px-6 py-3 bg-emerald-50 text-emerald-700 font-semibold rounded-full hover:bg-emerald-100 transition-colors mx-auto"
+              >
+                {isKitchenCollectionExpanded ? 'Hide Products' : 'View Products'}
+                <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isKitchenCollectionExpanded ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
           </div>
+
+          <AnimatePresence>
+            {isKitchenCollectionExpanded && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-4 pb-8">
+                  {productsGroup4.map((product, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                        <LazyImage 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                        <button 
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Products Section 5 - The Smart Heating Essentials */}
+      <section id="smart-home" className="pt-12 pb-12 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex flex-col items-center text-center gap-6 ${isSmartHomeExpanded ? 'mb-12' : 'mb-0'}`}>
+            <div className="max-w-3xl">
+              <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Smart Heating Essentials</h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Advanced Heating & Smart Cooking Solutions</h3>
+              <p className="text-lg text-slate-600 mb-6">
+                Experience the perfect blend of safety and innovation with our seasonal essentials. Our Premium Room Heaters provide instant, uniform warmth with built-in safety features for a cozy winter, while our Infra-Red Cooktops bring high-efficiency, flameless cooking to the modern kitchen.
+              </p>
+              <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                <img 
+                  src="https://picsum.photos/seed/heaters-group/1200/400" 
+                  alt="Smart Heating Essentials - Heaters and Cooktops" 
+                  className="w-full h-auto object-cover max-h-[400px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <button 
+                onClick={() => setIsSmartHomeExpanded(!isSmartHomeExpanded)}
+                className="inline-flex items-center px-6 py-3 bg-emerald-50 text-emerald-700 font-semibold rounded-full hover:bg-emerald-100 transition-colors mx-auto"
+              >
+                {isSmartHomeExpanded ? 'Hide Products' : 'View Products'}
+                <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isSmartHomeExpanded ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isSmartHomeExpanded && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-4 pb-8">
+                  {productsGroup5.map((product, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                        <LazyImage 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
+                        <button 
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -716,7 +1127,7 @@ export default function App() {
                 <span className="text-2xl font-protest font-normal text-white tracking-wide">ECOASIA</span>
               </div>
               <p className="text-slate-400 max-w-sm mb-8">
-                Manufacturing home comfort appliances with integrity, responsibility, and innovation since 1982.
+                Empowering Your Tomorrow, Today! Manufacturing home comfort appliances with integrity, responsibility, and innovation since 1982.
               </p>
               <div className="flex gap-4">
                 {/* Social Links could go here */}
@@ -793,18 +1204,18 @@ export default function App() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="p-4 sm:p-6 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-slate-900 pr-12">{selectedProduct.name}</h3>
-                <div className="hidden sm:flex items-center gap-3 mr-8 bg-slate-100 px-4 py-2 rounded-full">
-                  <span className="text-sm font-medium text-slate-500">Zoom</span>
+              <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 text-center sm:text-left pr-0 sm:pr-12">{selectedProduct.name}</h3>
+                <div className="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-full">
+                  <span className="text-xs sm:text-sm font-medium text-slate-500">Zoom</span>
                   <input 
                     type="range" 
                     min="1" 
-                    max="5" 
+                    max="3" 
                     step="0.1" 
                     value={zoomLevel} 
                     onChange={(e) => setZoomLevel(parseFloat(e.target.value))}
-                    className="w-24 accent-emerald-500 cursor-pointer"
+                    className="w-32 sm:w-24 accent-emerald-500 cursor-pointer"
                   />
                 </div>
               </div>
@@ -816,6 +1227,9 @@ export default function App() {
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleMouseUp}
                 style={{ cursor: zoomLevel > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
               >
                 <div 
