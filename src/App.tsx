@@ -12,48 +12,7 @@ import {
   ChevronRight, ChevronDown, Star, Leaf, Loader2
 } from 'lucide-react';
 
-const productsGroup1 = [
-  { name: "Glacier 2200", image: "https://lh3.googleusercontent.com/d/1L3W1cvFAiecGsL70FdDCsP-odsd1RdKu" },
-  { name: "Glacier 1800", image: "https://lh3.googleusercontent.com/d/1y1nNaHjE-0WE-eyiCCt0zuaGEfEIKpTm" },
-  { name: "Glacier LED", image: "https://lh3.googleusercontent.com/d/1c9EdjdrTqR2J8V-5e9RKbRWJtiOif0G7" },
-  { name: "Thunder", image: "https://lh3.googleusercontent.com/d/18SaO6VJu8RW1QCzO7I4SNVq5ikvBdIfP" },
-  { name: "Whitefilter", image: "https://lh3.googleusercontent.com/d/1i1EwefG5bbPSBs5VO9H9mPhmxUD2pcnY" },
-  { name: "Glacier Mini", image: "https://lh3.googleusercontent.com/d/1gfyiZOg4bdFgjvcJ4pX2haIwKCd9RsFT" },
-  { name: "Breeze", image: "https://lh3.googleusercontent.com/d/1D_UKKiMW4MCOyn0cR_kj40QikIdQ7v3n" },
-  { name: "Blackseries", image: "https://lh3.googleusercontent.com/d/1B2y8RtppBbb8CjhxPFEYuUkg8qwtGWMi" },
-];
 
-const productsGroup2 = [
-  { name: "Glacier 3000", image: "https://lh3.googleusercontent.com/d/1i89Im4WMk3Szxm71rs5Js9K9i58UHFel" },
-  { name: "Nuspak Tent Cooler 90/120/200L", image: "https://lh3.googleusercontent.com/d/1pd2wN5stGAJL3FurA4SdP1tfG0M8KzeH" },
-  { name: "Glacier 2200", image: "https://lh3.googleusercontent.com/d/1L3W1cvFAiecGsL70FdDCsP-odsd1RdKu" },
-  { name: "Blackseries 60", image: "https://lh3.googleusercontent.com/d/1njJToG34BCbY-Vtyvql6xpKT48ijFBsW" },
-];
-
-const productsGroup3 = [
-  { name: "AeroBlade - ABS", image: "https://lh3.googleusercontent.com/d/1yKvaaGZu8n2mOq2sxccB2RNQm1cFPDLW" },
-  { name: "EcoWind - Kit", image: "https://lh3.googleusercontent.com/d/1EZIBnlUtD05a9PtDZezONHFCImS-U-qe" },
-  { name: "Cyclone - 777", image: "https://lh3.googleusercontent.com/d/1GbPrtfjhU-_ayGZw2LDY3pRonmJsMNjB" },
-  { name: "Cyclone - Plus 777", image: "https://lh3.googleusercontent.com/d/1X9zlh9fO3aJ1LFIUiuXIpf3l52lBbMRV" },
-  { name: "TurboJet - 888", image: "https://lh3.googleusercontent.com/d/1BBB4zb6zR7SouqzQ0bwne0I8EB4Izuab" },
-  { name: "777 - Wall Cyclone", image: "https://lh3.googleusercontent.com/d/1cnySsL7he1_HKrhPUtflKCJEpOC7Ezoi" },
-  { name: "Prime - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1NaFmEOdz4-ZuU1OeDWn7wBJnhgEur2HS" },
-  { name: "Prime Plus - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1Evn0Nz-5yKlx7i7-D9JYuaXiOCNdDu_X" },
-  { name: "Estor - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/1xbf2YvRzpdSsCJz7b8xq0m_UFlBxU82s" },
-  { name: "Ellora - Ceiling Fan", image: "https://lh3.googleusercontent.com/d/13hBKg3PlYr2iV7FRFlHEZ8hGwNiCEtg9" },
-];
-
-const productsGroup4 = [
-  { name: "Curd Percolator 5 Kg", image: "https://lh3.googleusercontent.com/d/16o-oYOTgcxHn-655csKMwyKJgHkv9Yaq" },
-  { name: "Curd Percolator 20 Kg", image: "https://lh3.googleusercontent.com/d/185504t7FfQ7Z9eb7_cgcSUXf2qW7CWEo" },
-  { name: "Curd Percolator 40 Kg", image: "https://lh3.googleusercontent.com/d/1Na0e_J1f4T6CX1vAc9OIj24BpscLejm4" },
-];
-
-const productsGroup5 = [
-  { name: "Premium Quartz Heater", image: "https://picsum.photos/seed/heater1/800/1000" },
-  { name: "Oil-Filled Radiator", image: "https://picsum.photos/seed/heater2/800/1000" },
-  { name: "PTC Ceramic Heater", image: "https://picsum.photos/seed/heater3/800/1000" },
-];
 
 const LazyImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +49,19 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
   );
 };
 
+interface Product {
+  name: string;
+  image: string;
+  category: string;
+}
+
 export default function App() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [mainImages, setMainImages] = useState<Record<string, string>>({
+    Hero: "https://lh3.googleusercontent.com/d/1kWv4LXGf1ZUeoZMlughGzbHLWG5b_vSJ",
+    Safety: "https://lh3.googleusercontent.com/d/1VLMk7PBDcWFPSoeLxyTziQ8NptCQd7Jm"
+  });
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
@@ -107,6 +78,58 @@ export default function App() {
   const startPos = useRef({ x: 0, y: 0 });
   const scrollPos = useRef({ left: 0, top: 0 });
 
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycby--yVfmoiDv64CZYtz1xlYg8aubLtILeXuj3MlQJE4Jpwpan9JwJpFO4sbMPruYotFkA/exec';
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(scriptUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const fetchedMainImages: Record<string, string> = {};
+          const fetchedProducts: any[] = [];
+
+          data.forEach((p: any) => {
+            const rawName = p["Product Name"] || p.name;
+            const rawImage = p["Image Link"] || p.image;
+            const category = p["Category"] || p.category || "Domestic";
+
+            // Skip if both name and image are missing or empty
+            if (!rawName && !rawImage) return;
+
+            const name = rawName || "Unnamed Product";
+            const image = rawImage || "https://picsum.photos/seed/placeholder/800/1000";
+
+            if (name.toLowerCase() === "main") {
+              fetchedMainImages[category] = image;
+            } else {
+              fetchedProducts.push({ name, image, category });
+            }
+          });
+
+          if (Object.keys(fetchedMainImages).length > 0) {
+            setMainImages(prev => ({ ...prev, ...fetchedMainImages }));
+          }
+          setProducts(fetchedProducts);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        // Fallback to empty array or some default products if needed
+      } finally {
+        setIsLoadingProducts(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const productsGroup1 = products.filter(p => p.category === "Domestic");
+  const productsGroup2 = products.filter(p => p.category === "Commercial");
+  const productsGroup3 = products.filter(p => p.category === "Fans");
+  const productsGroup4 = products.filter(p => p.category === "Kitchen");
+  const productsGroup5 = products.filter(p => p.category === "Heating");
+
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -117,13 +140,17 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
+  const foundationYear = 1980;
+  const currentYear = new Date().getFullYear();
+  const yearsOfLegacy = currentYear - foundationYear;
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     try {
       // Replace with your Google Apps Script Web App URL
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbxfW7GIb-f-XBUTCd9lciJQcVsIDY2xPsSyYXgJ_h0-vP6GsUcYKfwWqVInprA1XVA5Ig/exec';
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycby--yVfmoiDv64CZYtz1xlYg8aubLtILeXuj3MlQJE4Jpwpan9JwJpFO4sbMPruYotFkA/exec';
       
       const formBody = new URLSearchParams();
       Object.entries(formData).forEach(([key, value]) => {
@@ -418,7 +445,7 @@ export default function App() {
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://lh3.googleusercontent.com/d/1kWv4LXGf1ZUeoZMlughGzbHLWG5b_vSJ" 
+            src={mainImages.Hero} 
             alt="Ecoasia Facility" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -551,7 +578,7 @@ export default function App() {
             >
               <div className="aspect-square rounded-3xl overflow-hidden relative">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1VLMk7PBDcWFPSoeLxyTziQ8NptCQd7Jm" 
+                  src={mainImages.Safety} 
                   alt="Manufacturing Process" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -566,7 +593,7 @@ export default function App() {
                     <Factory className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="text-2xl font-black">40+ Years</div>
+                    <div className="text-2xl font-black">{yearsOfLegacy}+ Years</div>
                     <div className="text-sm text-slate-500 font-medium">Manufacturing Legacy</div>
                   </div>
                 </div>
@@ -579,6 +606,13 @@ export default function App() {
       {/* Products Section 1 */}
       <section id="products" className="pt-12 pb-12 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {isLoadingProducts ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <Loader2 className="w-10 h-10 text-emerald-500 animate-spin mb-4" />
+              <p className="text-slate-500 font-medium">Loading products from legacy database...</p>
+            </div>
+          ) : (
+            <>
           <div className={`flex flex-col items-center text-center gap-6 ${isDomesticSeriesExpanded ? 'mb-12' : 'mb-0'}`}>
             <div className="max-w-3xl">
               <h2 className="text-sm font-bold text-emerald-600 tracking-widest uppercase mb-3">The Advanced Cooling Collection</h2>
@@ -588,7 +622,7 @@ export default function App() {
               </p>
               <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1XYbK3DK8LL_894gehWc2k4CzOUIgt_Zc" 
+                  src={mainImages.Domestic} 
                   alt="High-Performance Domestic Air Coolers" 
                   className="w-full h-auto object-cover max-h-[400px]"
                   referrerPolicy="no-referrer"
@@ -646,6 +680,8 @@ export default function App() {
               </motion.div>
             )}
           </AnimatePresence>
+          </>
+          )}
         </div>
       </section>
 
@@ -661,7 +697,7 @@ export default function App() {
               </p>
               <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1-k3HwPk5ayZrzTm473X6DdpPg5kj3om-" 
+                  src={mainImages.Commercial} 
                   alt="Heavy Air Coolers Commercial Series" 
                   className="w-full h-auto object-cover max-h-[400px]"
                   referrerPolicy="no-referrer"
@@ -734,7 +770,7 @@ export default function App() {
               </p>
               <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1hWMSj6cNVZo2nkd7U36b06UWFmaituws" 
+                  src={mainImages.Fans} 
                   alt="High-Speed Ceiling & Pedestal Fans" 
                   className="w-full h-auto object-cover max-h-[400px]"
                   referrerPolicy="no-referrer"
@@ -807,7 +843,7 @@ export default function App() {
               </p>
               <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1oTo35EiAGXDqZmcxnjFYsjdkkunuS7AQ" 
+                  src={mainImages.Kitchen} 
                   alt="Traditional Kitchen Collection Madhani" 
                   className="w-full h-auto object-cover max-h-[400px]"
                   referrerPolicy="no-referrer"
@@ -880,7 +916,7 @@ export default function App() {
               </p>
               <div className="mb-8 rounded-2xl overflow-hidden shadow-md border border-slate-100">
                 <img 
-                  src="https://picsum.photos/seed/heaters-group/1200/400" 
+                  src={mainImages.Heating} 
                   alt="Smart Heating Essentials - Heaters and Cooktops" 
                   className="w-full h-auto object-cover max-h-[400px]"
                   referrerPolicy="no-referrer"
@@ -951,9 +987,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-sm font-bold text-emerald-400 tracking-widest uppercase mb-3">Our Legacy</h2>
-            <h3 className="text-3xl md:text-5xl font-bold mb-6">40-Year Foundation</h3>
+            <h3 className="text-3xl md:text-5xl font-bold mb-6">{yearsOfLegacy}-Year Foundation</h3>
             <p className="text-lg text-slate-300">
-              <span className="font-protest font-normal tracking-wide">ECOASIA</span> is built on the strong foundation of Asha Fan Industries, a trusted name in manufacturing since 1982. We carry forward a legacy of reliability into a new era of modern home appliances.
+              <span className="font-protest font-normal tracking-wide">ECOASIA</span> is built on the strong foundation of Asha Fan Industries, a trusted name in manufacturing since {foundationYear}. We carry forward a legacy of reliability into a new era of modern home appliances.
             </p>
           </div>
 
@@ -1008,7 +1044,7 @@ export default function App() {
                   "Competitive dealer pricing structures",
                   "Reliable after-sales support network",
                   "Comprehensive marketing and branding materials",
-                  "Association with a 40-year legacy of trust"
+                  `Association with a ${yearsOfLegacy}-year legacy of trust`
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
@@ -1127,7 +1163,7 @@ export default function App() {
                 <span className="text-2xl font-protest font-normal text-white tracking-wide">ECOASIA</span>
               </div>
               <p className="text-slate-400 max-w-sm mb-8">
-                Empowering Your Tomorrow, Today! Manufacturing home comfort appliances with integrity, responsibility, and innovation since 1982.
+                Empowering Your Tomorrow, Today! Manufacturing home comfort appliances with integrity, responsibility, and innovation since {foundationYear}.
               </p>
               <div className="flex gap-4">
                 {/* Social Links could go here */}
