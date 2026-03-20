@@ -23,12 +23,12 @@ const transformDriveUrl = (url: string) => {
   return url;
 };
 
-const LazyImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+const LazyImage = ({ src, alt, className, bgClassName = "bg-slate-100", loading = "lazy" }: { src: string; alt: string; className?: string; bgClassName?: string; loading?: "lazy" | "eager" }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
   return (
-    <div className={`relative ${className} bg-slate-100`}>
+    <div className={`relative ${className} ${bgClassName}`}>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
           <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
@@ -44,7 +44,7 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
           setError(true);
         }}
         referrerPolicy="no-referrer"
-        loading="lazy"
+        loading={loading}
       />
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-200 text-slate-400">
@@ -67,7 +67,13 @@ interface Product {
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-  const [mainImages, setMainImages] = useState<Record<string, string>>(STATIC_IMAGES);
+  const [mainImages, setMainImages] = useState<Record<string, string>>(() => {
+    const transformed: Record<string, string> = {};
+    Object.entries(STATIC_IMAGES).forEach(([key, value]) => {
+      transformed[key] = transformDriveUrl(value);
+    });
+    return transformed;
+  });
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
@@ -111,8 +117,6 @@ export default function App() {
             const image = transformDriveUrl(rawImage || "https://picsum.photos/seed/placeholder/800/1000");
 
             if (name.toLowerCase() === "main") {
-              // Skip Hero and Safety categories as they are now static
-              if (category === "Hero" || category === "Safety") return;
               fetchedMainImages[category] = image;
             } else {
               fetchedProducts.push({ name, image, category });
@@ -453,13 +457,14 @@ export default function App() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
-          <img 
+          <LazyImage 
             src={mainImages.Hero} 
             alt="Ecoasia Facility" 
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            className="w-full h-full"
+            bgClassName="bg-slate-900"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply"></div>
         </div>
