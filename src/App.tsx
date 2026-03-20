@@ -11,8 +11,17 @@ import {
   ThermometerSun, Droplets, Factory, ThumbsUp,
   ChevronRight, ChevronDown, Star, Leaf, Loader2
 } from 'lucide-react';
+import { STATIC_IMAGES } from './constants';
 
-
+const transformDriveUrl = (url: string) => {
+  if (!url) return url;
+  // Handle standard Google Drive sharing links
+  const driveMatch = url.match(/\/(?:d|file\/d|open\?id=)([\w-]{25,})[\/\?]?/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+  }
+  return url;
+};
 
 const LazyImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,10 +67,7 @@ interface Product {
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-  const [mainImages, setMainImages] = useState<Record<string, string>>({
-    Hero: "https://lh3.googleusercontent.com/d/1kWv4LXGf1ZUeoZMlughGzbHLWG5b_vSJ",
-    Safety: "https://lh3.googleusercontent.com/d/1VLMk7PBDcWFPSoeLxyTziQ8NptCQd7Jm"
-  });
+  const [mainImages, setMainImages] = useState<Record<string, string>>(STATIC_IMAGES);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
@@ -93,15 +99,20 @@ export default function App() {
           data.forEach((p: any) => {
             const rawName = p["Product Name"] || p.name;
             const rawImage = p["Image Link"] || p.image;
-            const category = p["Category"] || p.category || "Domestic";
+            const rawCategory = p["Category"] || p.category || "Domestic";
+            
+            // Normalize category (e.g., "heating" -> "Heating")
+            const category = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
 
             // Skip if both name and image are missing or empty
             if (!rawName && !rawImage) return;
 
             const name = rawName || "Unnamed Product";
-            const image = rawImage || "https://picsum.photos/seed/placeholder/800/1000";
+            const image = transformDriveUrl(rawImage || "https://picsum.photos/seed/placeholder/800/1000");
 
             if (name.toLowerCase() === "main") {
+              // Skip Hero and Safety categories as they are now static
+              if (category === "Hero" || category === "Safety") return;
               fetchedMainImages[category] = image;
             } else {
               fetchedProducts.push({ name, image, category });
@@ -1240,8 +1251,8 @@ export default function App() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 text-center sm:text-left pr-0 sm:pr-12">{selectedProduct.name}</h3>
+              <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 text-center">{selectedProduct.name}</h3>
                 <div className="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-full">
                   <span className="text-xs sm:text-sm font-medium text-slate-500">Zoom</span>
                   <input 
