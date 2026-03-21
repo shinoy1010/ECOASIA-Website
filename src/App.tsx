@@ -256,7 +256,7 @@ export default function App() {
       e.preventDefault();
       setZoomLevel(prev => {
         const zoomChange = e.deltaY < 0 ? 0.15 : -0.15;
-        return Math.min(Math.max(1, prev + zoomChange), 5);
+        return Math.min(Math.max(1, prev + zoomChange), 2);
       });
     };
 
@@ -1296,10 +1296,13 @@ export default function App() {
                   <input 
                     type="range" 
                     min="1" 
-                    max="3" 
+                    max="2" 
                     step="0.1" 
                     value={zoomLevel} 
-                    onChange={(e) => setZoomLevel(parseFloat(e.target.value))}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      setZoomLevel(val);
+                    }}
                     className="w-32 sm:w-24 accent-emerald-500 cursor-pointer"
                   />
                 </div>
