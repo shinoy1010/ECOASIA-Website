@@ -65,6 +65,7 @@ interface Product {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [mainImages, setMainImages] = useState<Record<string, string>>(() => {
@@ -93,6 +94,10 @@ export default function App() {
   const scriptUrl = 'https://script.google.com/macros/s/AKfycby--yVfmoiDv64CZYtz1xlYg8aubLtILeXuj3MlQJE4Jpwpan9JwJpFO4sbMPruYotFkA/exec';
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1500); // Slightly more than 1s for better feel
+
     const fetchProducts = async () => {
       try {
         const response = await fetch(scriptUrl);
@@ -277,6 +282,34 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center"
+            >
+              <div className="bg-[#bf1c1c] px-8 py-3 mb-2">
+                <h1 className="text-6xl md:text-8xl font-protest text-white tracking-tight leading-none relative inline-block">
+                  ECOASIA
+                  <span className="absolute -top-1 -right-2 text-xs md:text-lg font-sans font-bold">®</span>
+                </h1>
+              </div>
+              <p className="text-base md:text-lg font-bold text-black tracking-tight">
+                Empowering Your Tomorrow, Today!
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
