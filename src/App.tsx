@@ -86,6 +86,7 @@ export default function App() {
   const [isCommercialSeriesExpanded, setIsCommercialSeriesExpanded] = useState(false);
   const [isProductsHovered, setIsProductsHovered] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const prevZoomRef = useRef(zoomLevel);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const startPos = useRef({ x: 0, y: 0 });
@@ -203,6 +204,12 @@ export default function App() {
     }
   };
 
+  const handleProductClick = (product: any) => {
+    setSelectedProduct(product);
+    setZoomLevel(1);
+    prevZoomRef.current = 1;
+  };
+
   const handleCloseModal = () => {
     setSelectedProduct(null);
     setTimeout(() => setZoomLevel(1), 300);
@@ -263,6 +270,33 @@ export default function App() {
     container.addEventListener('wheel', handleWheel, { passive: false });
     return () => container.removeEventListener('wheel', handleWheel);
   }, [selectedProduct]);
+
+  useEffect(() => {
+    if (imageContainerRef.current && selectedProduct) {
+      const container = imageContainerRef.current;
+      const prevZoom = prevZoomRef.current;
+      
+      if (prevZoom !== zoomLevel) {
+        const ratio = zoomLevel / prevZoom;
+        
+        // Calculate the center of the viewport relative to the content
+        const centerX = container.scrollLeft + container.clientWidth / 2;
+        const centerY = container.scrollTop + container.clientHeight / 2;
+        
+        // New center position in the scaled content
+        const newCenterX = centerX * ratio;
+        const newCenterY = centerY * ratio;
+        
+        // New scroll positions to keep that center point in the middle of the viewport
+        container.scrollLeft = newCenterX - container.clientWidth / 2;
+        container.scrollTop = newCenterY - container.clientHeight / 2;
+        
+        prevZoomRef.current = zoomLevel;
+      }
+    } else if (!selectedProduct) {
+      prevZoomRef.current = 1;
+    }
+  }, [zoomLevel, selectedProduct]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -717,7 +751,7 @@ export default function App() {
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
                         <button 
-                          onClick={() => setSelectedProduct(product)}
+                          onClick={() => handleProductClick(product)}
                           className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
                         >
                           View Details <ChevronRight className="w-4 h-4 ml-1" />
@@ -792,7 +826,7 @@ export default function App() {
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
                         <button 
-                          onClick={() => setSelectedProduct(product)}
+                          onClick={() => handleProductClick(product)}
                           className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
                         >
                           View Details <ChevronRight className="w-4 h-4 ml-1" />
@@ -865,7 +899,7 @@ export default function App() {
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
                         <button 
-                          onClick={() => setSelectedProduct(product)}
+                          onClick={() => handleProductClick(product)}
                           className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
                         >
                           View Details <ChevronRight className="w-4 h-4 ml-1" />
@@ -938,7 +972,7 @@ export default function App() {
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
                         <button 
-                          onClick={() => setSelectedProduct(product)}
+                          onClick={() => handleProductClick(product)}
                           className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
                         >
                           View Details <ChevronRight className="w-4 h-4 ml-1" />
@@ -1011,7 +1045,7 @@ export default function App() {
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-slate-900 mb-1">{product.name}</h4>
                         <button 
-                          onClick={() => setSelectedProduct(product)}
+                          onClick={() => handleProductClick(product)}
                           className="flex items-center text-emerald-600 text-sm font-medium hover:text-emerald-700 transition-colors"
                         >
                           View Details <ChevronRight className="w-4 h-4 ml-1" />
@@ -1335,7 +1369,7 @@ export default function App() {
                     style={{ 
                       width: '100%',
                       height: '100%',
-                      maxHeight: zoomLevel === 1 ? '65vh' : 'none'
+                      maxHeight: `${zoomLevel * 65}vh`
                     }}
                     referrerPolicy="no-referrer"
                   />
